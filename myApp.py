@@ -6,6 +6,7 @@ import datetime as dt
 import pickle
 import pandas as pd
 import plotly.express as px
+import json
 
 
 # incorporate data into app
@@ -30,7 +31,7 @@ df = pd.DataFrame({
     "y": flow
 })
 
-fig = px.scatter(df, x="x", y="y")
+fig = px.scatter(df, x="x", y="y",  width=800, height=800)
 fig.update_layout(clickmode='event+select')
 
 currentdatetime = dt.datetime.now()
@@ -46,8 +47,6 @@ app.layout = html.Div([
     ),
 
     html.Pre(id='selected-data'),
-
-    html.Button('Fini', id='btn_fini', n_clicks=0),
 
     html.Div([
         dcc.Input(
@@ -104,7 +103,11 @@ def add_rows(n_clicks, value, value2, existing_rows):
     return existing_rows
 
 
-
+@app.callback(
+    Output('selected-data', 'children'),
+    Input('flow_vol_curve', 'selectedData'))
+def display_selected_data(selectedData):
+    return json.dumps(selectedData, indent=12)
 
 
 @app.callback(
