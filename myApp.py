@@ -48,6 +48,11 @@ app.layout = html.Div([
 
     html.Pre(id='selected-data'),
 
+    html.Div([
+        html.Button('add Selected Data', id='adding-data-button', n_clicks=0)
+    ]),
+
+
     # html.Div([
     #     dcc.Input(
     #         id='value_start',
@@ -107,29 +112,37 @@ app.layout = html.Div([
 
 @app.callback(
     Output(component_id='abnormalities-idx-tab', component_property='data'),
-    Input(component_id='flow_vol_curve', component_property='selectedData'),
+    Input(component_id='adding-data-button', component_property='n_clicks'),
+    State(component_id='flow_vol_curve', component_property='selectedData'),
     State(component_id='abnormalities-idx-tab', component_property='data'),
 )
-def add_rows_select(selectedData, existing_rows):
+def add_rows_select(n_clicks, selectedData, existing_rows):
 
-    if not selectedData is None:
-        value_start = selectedData["points"][0]['pointIndex']
-        value_end = selectedData["points"][-1]['pointIndex']
-        print(value_start)
+    if n_clicks > 0:
+        if not selectedData is None:
+            value_start = selectedData["points"][0]['pointIndex']
+            value_end = selectedData["points"][-1]['pointIndex']
+            print(value_start)
 
-        if existing_rows is None:
-            existing_rows = ({
-                'Abnormality Type': 'test',
-                'Start Index': value_start,
-                'Stop Index': value_end}),
+            if existing_rows is None:
+                existing_rows = ({
+                    'Abnormality Type': 'test',
+                    'Start Index': value_start,
+                    'Stop Index': value_end}),
+
+            else:
+                existing_rows.append({
+                    'Abnormality Type': 'test',
+                    'Start Index': value_start,
+                    'Stop Index': value_end}),
+
+            return existing_rows
 
         else:
-            existing_rows.append({
-                'Abnormality Type': 'test',
-                'Start Index': value_start,
-                'Stop Index': value_end}),
+            print('select data')
 
-        return existing_rows
+
+
 
 
 @app.callback(
