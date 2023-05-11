@@ -41,6 +41,7 @@ app = dash.Dash(__name__, suppress_callback_exceptions=True)
 
 app.layout = html.Div([
 
+    dcc.Dropdown(['Artefact', 'Cough', 'Irregularity', 'Not defined'], 'Not defined', id='demo-dropdown'),
     dcc.Graph(
         id='flow_vol_curve',
         figure=fig
@@ -52,24 +53,6 @@ app.layout = html.Div([
         html.Button('add Selected Data', id='adding-data-button', n_clicks=0)
     ]),
 
-
-    # html.Div([
-    #     dcc.Input(
-    #         id='value_start',
-    #         placeholder='Start zone of interest',
-    #         type='number',
-    #         value='',
-    #         style={'padding': 10}
-    #     ),
-    #     dcc.Input(
-    #         id='value_end',
-    #         placeholder='End zone of interest',
-    #         type='number',
-    #         value='',
-    #         style={'padding': 10}
-    #     ),
-    #     html.Button('add Data', id='adding-data-button', n_clicks=0)
-    # ], style={'height': 50}),
 
     dash_table.DataTable(id='abnormalities-idx-tab'),
 
@@ -84,55 +67,37 @@ app.layout = html.Div([
 
 
 # ------------------------------------------------------------------------------------------------
-
-
 # @app.callback(
-#     Output(component_id='abnormalities-idx-tab', component_property='data'),
-#     [Input(component_id='adding-data-button', component_property='n_clicks')],
-#     [State(component_id='value_start', component_property='value'),
-#      State(component_id='value_end', component_property='value'),
-#      State(component_id='abnormalities-idx-tab', component_property='data')],
+#     Output('abnormalities-idx-tab', 'Type'),
+#     Input('demo-dropdown', 'value')
 # )
-# def add_rows(n_clicks, value_start, value_end, existing_rows):
-#     if n_clicks > 0:
-#         if existing_rows is None:
-#             existing_rows = ({
-#                 'Abnormality Type': 'test',
-#                 'Start Index': value_start,
-#                 'Stop Index': value_end}),
-#
-#         else:
-#             existing_rows.append({
-#                 'Abnormality Type': 'test',
-#                 'Start Index': value_start,
-#                 'Stop Index': value_end}),
-#
-#     return existing_rows
+# def update_output(value):
+#     return f'You have selected {value}'
 
 
 @app.callback(
     Output(component_id='abnormalities-idx-tab', component_property='data'),
     Input(component_id='adding-data-button', component_property='n_clicks'),
     State(component_id='flow_vol_curve', component_property='selectedData'),
+    State(component_id='demo-dropdown', component_property='value'),
     State(component_id='abnormalities-idx-tab', component_property='data'),
 )
-def add_rows_select(n_clicks, selectedData, existing_rows):
+def add_rows_select(n_clicks, selectedData, abno_type, existing_rows):
 
     if n_clicks > 0:
         if not selectedData is None:
             value_start = selectedData["points"][0]['pointIndex']
             value_end = selectedData["points"][-1]['pointIndex']
-            print(value_start)
 
             if existing_rows is None:
                 existing_rows = ({
-                    'Abnormality Type': 'test',
+                    'Abnormality Type': abno_type,
                     'Start Index': value_start,
                     'Stop Index': value_end}),
 
             else:
                 existing_rows.append({
-                    'Abnormality Type': 'test',
+                    'Abnormality Type': abno_type,
                     'Start Index': value_start,
                     'Stop Index': value_end}),
 
@@ -140,8 +105,6 @@ def add_rows_select(n_clicks, selectedData, existing_rows):
 
         else:
             print('select data')
-
-
 
 
 
@@ -159,35 +122,34 @@ def display_selected_data(selectedData):  # selectedData is a property of Graph
     return json.dumps(res, indent=12)
 
 
-# @app.callback(
-#     [Output('placeholder', 'children'),
-#      Output("store", "data")],
-#     [Input('save_to_csv', 'n_clicks'),
-#      Input("interval", "n_intervals")],
-#     [State('our-table', 'data'),
-#      State('store', 'data')]
-# )
-# def df_to_csv(n_clicks, n_intervals, dataset, s):
-#     output = html.Plaintext("The data has been saved to your folder.",
-#                             style={'color': 'green', 'font-weight': 'bold', 'font-size': 'large'})
-#     no_output = html.Plaintext("", style={'margin': "0px"})
-#
-#     input_triggered = dash.callback_context.triggered[0]["prop_id"].split(".")[0]
-#
-#     if input_triggered == "save_to_csv":
-#         print(dataset)
-#         s = 6
-#         df = pd.DataFrame(dataset)
-#         df.to_csv("Data2.csv", index=False, mode='a', header=False)
-#         return output, s
-#     elif input_triggered == 'interval' and s > 0:
-#         s = s - 1
-#         if s > 0:
-#             return output, s
-#         else:
-#             return no_output, s
-#     elif s == 0:
-#         return no_output, s
+@app.callback(
+    [Output(component_id='placeholder', component_property='children'),
+     Output(component_id="store", component_property="data")],
+    [Input(component_id='save_to_csv', component_property='n_clicks'),
+     Input(component_id="interval", component_property="n_intervals")],
+    [State(component_id='abnormalities-idx-tab', component_property='data'),
+     State(component_id='store', component_property='data')]
+)
+def df_to_csv(n_clicks, n_intervals, dataset, s):
+    output = html.Plaintext("The data has been saved to your folder.",
+                            style={'color': 'green', 'font-weight': 'bold', 'font-size': 'large'})
+    no_output = html.Plaintext("", style={'margin': "0px"})
+
+    input_triggered = dash.callback_context.triggered[0]["prop_id"].split(".")[0]
+
+    if input_triggered == "save_to_csv":
+        s = 6
+        df = pd.DataFrame(dataset)
+        df.to_csv(r"\\filer300\USERS3007\I0337516\Desktop\DataTest.csv", index=False, mode='a', header=False)
+        return output, s
+    elif input_triggered == 'interval' and s > 0:
+        s = s - 1
+        if s > 0:
+            return output, s
+        else:
+            return no_output, s
+    elif s == 0:
+        return no_output, s
 
 
 if __name__ == '__main__':
