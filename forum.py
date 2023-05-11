@@ -57,13 +57,11 @@ def add_rows(n_clicks, value, value2, existing_rows):
     if n_clicks > 0:
         if existing_rows is None:
             existing_rows = ({
-                'name': 0, 'id': value,
-                'name': 0, 'id': value2}),
+                'name': value, 'id': value2}),
 
         else:
             existing_rows.append({
-                'name': 0, 'id': value,
-                'name': 0, 'id': value2}),
+                'name': value, 'id': value2}),
 
     return existing_rows
 
