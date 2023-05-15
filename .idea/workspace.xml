@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d400eba-7cee-4302-828f-05d10f9fd11a" name="Changes" comment="Select abnormality type, select data, enter in table, export table to csv">
+    <list default="true" id="1d400eba-7cee-4302-828f-05d10f9fd11a" name="Changes" comment="change curve, previous and next, add data. &#10;&#10;Next: layout, automatic lasso, curve and not scatter">
+      <change afterPath="$PROJECT_DIR$/layout_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/forum.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/myApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/myApp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +64,7 @@
       <recent name="C:\Users\I0337516\PycharmProjects\dashAppTest" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.myApp">
+  <component name="RunManager" selected="Python.app">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dashAppTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -85,7 +87,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="forum" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="layout_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="dashAppTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -98,7 +100,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/forum.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\I0337516\PycharmProjects\dashAppTest\layout_test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -131,9 +133,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.myApp" />
-        <item itemvalue="Python.forum" />
         <item itemvalue="Python.app" />
+        <item itemvalue="Python.layout_test" />
+        <item itemvalue="Python.myApp" />
       </list>
     </recent_temporary>
   </component>
@@ -153,7 +155,8 @@
       <workItem from="1683638951129" duration="24000" />
       <workItem from="1683704117958" duration="257000" />
       <workItem from="1683726035396" duration="2775000" />
-      <workItem from="1683789245083" duration="25569000" />
+      <workItem from="1683789245083" duration="26107000" />
+      <workItem from="1684094236007" duration="12883000" />
     </task>
     <task id="LOCAL-00001" summary="myApp is showing graph and selected data an we can manually enter data into table">
       <created>1683620670260</created>
@@ -183,7 +186,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683814795674</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="change curve, previous and next, add data. &#10;&#10;Next: layout, automatic lasso, curve and not scatter">
+      <created>1683906370898</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1683906370899</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,11 +204,12 @@
     <MESSAGE value="select and enter data into table (without button)" />
     <MESSAGE value="select and enter data into table with &quot;add selected data&quot; button" />
     <MESSAGE value="Select abnormality type, select data, enter in table, export table to csv" />
-    <option name="LAST_COMMIT_MESSAGE" value="Select abnormality type, select data, enter in table, export table to csv" />
+    <MESSAGE value="change curve, previous and next, add data. &#10;&#10;Next: layout, automatic lasso, curve and not scatter" />
+    <option name="LAST_COMMIT_MESSAGE" value="change curve, previous and next, add data. &#10;&#10;Next: layout, automatic lasso, curve and not scatter" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/dashAppTest$myApp.coverage" NAME="myApp Coverage Results" MODIFIED="1683904814442" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/dashAppTest$forum.coverage" NAME="forum Coverage Results" MODIFIED="1683798284743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/dashAppTest$app.coverage" NAME="app Coverage Results" MODIFIED="1683562499665" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dashAppTest$myApp.coverage" NAME="myApp Coverage Results" MODIFIED="1684137255880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dashAppTest$forum.coverage" NAME="layout_test Coverage Results" MODIFIED="1684138366342" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/dashAppTest$app.coverage" NAME="app Coverage Results" MODIFIED="1684146010021" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

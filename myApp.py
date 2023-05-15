@@ -2,14 +2,16 @@ import dash
 from dash.dependencies import Input, Output, State
 from dash import dash_table
 from dash import dcc, html
+import dash_bootstrap_components as dbc
 import datetime as dt
 import pickle
 import pandas as pd
 import plotly.express as px
 import json
 
-#https://www.google.com/search?q=position+on+the+page+dash+app&oq=position+on+the+page+dash+app&aqs=edge..69i57.5640j0j1&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:d062947d,vid:MtSgh6FOL7I
+# https://www.google.com/search?q=position+on+the+page+dash+app&oq=position+on+the+page+dash+app&aqs=edge..69i57.5640j0j1&sourceid=chrome&ie=UTF-8#fpstate=ive&vld=cid:d062947d,vid:MtSgh6FOL7I
 # incorporate data into app
+
 def load_table_pickle(path, name_file):
     file = path + "\\" + name_file + '_rawCurves.pkl'
 
@@ -19,13 +21,14 @@ def load_table_pickle(path, name_file):
     print("... done loading dictionary from file", file)
     return df_
 
+
 root = r'\\filer300\USERS3007\I0337516\Desktop\spiroQC_project\XBJC_set'
 name_file_df_data = 'format_df_data_from_XML'
 data_curves = load_table_pickle(root, name_file_df_data)
 df_curves = data_curves[['vol_FV', 'flow_FV']]
 
 
-app = dash.Dash(__name__, suppress_callback_exceptions=True)
+app = dash.Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 
 app.layout = html.Div([
